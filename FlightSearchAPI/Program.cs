@@ -1,15 +1,32 @@
+using FlightSearchAPI.Services;
+using Microsoft.AspNetCore.Hosting;
+
+/****************************************************
+ *                FlightSearch API                  *
+ **************************************************** 
+ * File:    Program
+ * Date:    09/09/2024
+ * Author:  Luka Pervan
+ * Summary: An API made that is used as a middleware 
+ * in communication between a ReactJS frontend and 
+ * Amadeus API for flights informations.
+****************************************************/
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<FlightSearchService>();
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+builder.Services.AddMemoryCache();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
