@@ -58,7 +58,7 @@ namespace FlightSearchAPI.Services
             // Provjeri je li zahtjev uspješan
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Error fetching flight data from Amadeus API.");
+                throw new Exception($"Error fetching flight data from Amadeus API. Response: {response} ");
             }
 
             // Deserijalizacija odgovora u listu letova

@@ -30,7 +30,7 @@ namespace FlightSearchAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error fetching flight data: {ex.Message}");
+                return StatusCode(400, $"Error fetching flight data: {ex.Message}");
             }
         }
     }
